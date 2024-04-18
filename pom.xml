@@ -60,7 +60,7 @@
 	
 	<distributionManagement>
         <repository>
-            <id>ca.anypoint.credentials</id>
+            <id>Testca.anypoint.credentials</id>
             <name>My Repository</name>
             <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
         </repository>
