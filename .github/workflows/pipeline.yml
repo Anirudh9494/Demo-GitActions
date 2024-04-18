@@ -70,7 +70,7 @@ jobs:
             artifactName=$(ls *.jar | head -1)
             mvn deploy \
             -s .maven/settings.xml \
-            -mule.artifact=$artifactName \
+            -Dmule.artifact=$artifactName \
 
                     
   deploy:
