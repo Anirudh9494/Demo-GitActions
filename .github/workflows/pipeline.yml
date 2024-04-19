@@ -101,5 +101,7 @@ jobs:
              mvn deploy -DmuleDeploy \ 
              -Dmule.artifact=$artifactName \
              -B .maven/settings.xml \ 
+             -Danypoint.username="$ID" \
+             -Danypoint.password="$SECRET" \
              -DskipTests \
              -DskipDeploymentVerification="true"
