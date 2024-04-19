@@ -49,28 +49,28 @@ jobs:
           name: artifacts
           path: target/*.jar
   upload:
-        needs: build
-        runs-on: ubuntu-latest 
-        env:
-          CA_CLIENT_ID: ${{secrets.CA_CLIENT_ID}}
-          CA_CLIENT_SECRET: ${{secrets.CA_CLIENT_SECRET}}
-        steps:
-        - uses: actions/checkout@v3
-        - uses: actions/cache@v3
-          with: 
-            path: ~/.m2/repository
-            key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
-            restore-keys: |
-              ${{runner.os}}-maven-
-        - uses: actions/download-artifact@master
-          with:
-            name: artifacts
-        - name: Upload to exchange
-          run: |
-            artifactName=$(ls *.jar | head -1)
-            mvn deploy \
-            -s .maven/settings.xml \
-            -Dmule.artifact=$artifactName \
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with: 
+        path: ~/.m2/repository
+        key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
+        restore-keys: |
+          ${{runner.os}}-maven-
+    - uses: actions/download-artifact@master
+      with:
+        name: artifacts
+    - name: Upload to GitHub Releases
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: https://github.com/Anirudh9494/GitAction-jarFiles
+        #asset_path: ${{ github.workspace }}/*.jar
+        #asset_name: ${{ github.event.release.tag_name }}.jar
+        asset_content_type: application/java-archive
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
                     
   deploy:
