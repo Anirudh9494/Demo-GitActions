@@ -78,7 +78,7 @@ jobs:
 
                     
   deploy:
-        needs: upload
+        needs: build
         runs-on: ubuntu-latest 
         env:
           CA_CLIENT_ID: ${{secrets.CA_CLIENT_ID}}
