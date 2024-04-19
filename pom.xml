@@ -34,8 +34,8 @@
       					<uri>https://anypoint.mulesoft.com</uri>
       					<provider>MC</provider>
      				 	<muleVersion>4.5.3</muleVersion>
-     				 	<ConnectedAppClientId>${client.id}</ConnectedAppClientId>
-     					<ConnectedAppClientSecret>${client.secret}</ConnectedAppClientSecret>
+     				 	<ConnectedAppClientId>${CA_CLIENT_ID}</ConnectedAppClientId>
+     					<ConnectedAppClientSecret>${CA_CLIENT_ID}</ConnectedAppClientSecret>
       					<server>TESTca.anypoint.credentials</server>
       					<applicationName>ci-cd-poc</applicationName>
       					<replica>1</replica>
