@@ -64,13 +64,13 @@ jobs:
         name: artifacts
 
     - name: Create Workspace Directory
-      run: mkdir JAR_FILES
+      run: mkdir TEST
       
     - name: Upload to GitHub Releases
       uses: actions/upload-release-asset@v1
       with:
         upload_url: https://github.com/Anirudh9494/GitAction-jarFiles
-        asset_path: JAR_FILES
+        asset_path: /TEST
         asset_name: ci-cd-poc
         asset_content_type: application/java-archive
       env:
