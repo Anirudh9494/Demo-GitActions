@@ -32,14 +32,14 @@
 				<configuration>
    					<cloudHub2Deployment>
       					<uri>https://anypoint.mulesoft.com</uri>
+      					<provider>MC</provider>
      				 	<muleVersion>4.5.3</muleVersion>
-     				 	<username>Anirudh4142</username>
-     					<password>Anirudh@123</password>
-      					<server>ca.anypoint.credentials</server>
+     				 	<ConnectedAppClientId>${client.id}</ConnectedAppClientId>
+     					<ConnectedAppClientSecret>${client.secret}</ConnectedAppClientSecret>
+      					<server>TESTca.anypoint.credentials</server>
       					<applicationName>ci-cd-poc</applicationName>
       					<replica>1</replica>
       					<vcores>0.1</vcores>
-      					<skipDeploymentVerification>${skipDeploymentVerification}</skipDeploymentVerification>
       					<integration>
       					<service>
       					<objectStoresV2>
