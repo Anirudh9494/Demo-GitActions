@@ -66,6 +66,18 @@ jobs:
 
     - name: Create Workspace Directory
       run: mkdir TEST
+
+    - name: Create Relase Directory
+      run: |
+        cd TEST
+        for file in *; do
+        echo "Uploading $file..."
+        curl -X POST \
+        -H "Authorization: token $GITHUB_TOKEN" \
+        -H "Content-Type: application/octet-stream" \
+        --data-binary "@$file" \
+        "$UPLOAD_URL?name=$file"
+         done
       
     - name: Upload to GitHub Releases
       uses: actions/upload-release-asset@v1
