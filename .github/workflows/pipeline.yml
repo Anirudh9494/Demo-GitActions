@@ -33,6 +33,7 @@ jobs:
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
           mv $artifactName1 $artifactName2
+          mv $artifactName2 target/  # Move the artifact to target directory
 
       - name: Upload artifact to Git repository
         run: |
@@ -41,7 +42,7 @@ jobs:
           git add .
           git commit -m "Add artifact for deployment"
           git remote add origin git@github.com:Anirudh9494/Uploadjar.git
-          git push
+          git push -u origin master
 
   deploy:
     needs: build
@@ -57,7 +58,7 @@ jobs:
       - name: Download artifact from Git repository
         run: |
           git pull
-          artifactName=$(ls *.jar | head -1)
+          artifactName=$(ls target/*.jar | head -1)
           mv $artifactName target/
 
       - name: Deploy to SANDBOX
