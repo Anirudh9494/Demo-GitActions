@@ -35,15 +35,17 @@ jobs:
           artifactNameWithHash="$artifactName-$commitHash-$timestamp.jar"
           mkdir -p target  # Create target directory if it doesn't exist
           mv "target/$artifactName" "target/$artifactNameWithHash"
+          echo "Artifact moved to target directory."
 
       - name: Upload artifact to Git repository
         run: |
           git config --local user.email "anirudh.4142@gmail.com"
           git config --local user.name "Anirudh9494"
-          git add .
+          git add target/
           git commit -m "Add artifact for deployment"
           git remote add origin git@github.com:Anirudh9494/Uploadjar.git
           git push -u origin master
+          echo "Artifact committed and pushed to repository."
 
   deploy:
     needs: build
@@ -61,6 +63,7 @@ jobs:
           git pull
           artifactName=$(basename $(ls target/*.jar | head -1))
           mv "target/$artifactName" target/
+          echo "Artifact downloaded from repository."
 
       - name: Deploy to SANDBOX
         run: |
@@ -72,3 +75,4 @@ jobs:
           -Danypoint.secret="$CA_CLIENT_SECRET" \
           -DskipTests \
           -DskipDeploymentVerification="true"
+          echo "Artifact deployed to SANDBOX."
