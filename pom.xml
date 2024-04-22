@@ -35,17 +35,17 @@
       					<provider>MC</provider>
      				 	<muleVersion>4.5.3</muleVersion>
      				 	<ConnectedAppClientId>${CA_CLIENT_ID}</ConnectedAppClientId>
-     					<ConnectedAppClientSecret>${CA_CLIENT_ID}</ConnectedAppClientSecret>
-      					<server>TESTca.anypoint.credentials</server>
+     					<ConnectedAppClientSecret>${CA_CLIENT_SECRET}</ConnectedAppClientSecret>
+      					<server>Testca.anypoint.credentials</server> <!-- Corrected server id -->
       					<applicationName>ci-cd-poc</applicationName>
       					<replica>1</replica>
       					<vcores>0.1</vcores>
       					<integration>
-      					<service>
-      					<objectStoresV2>
-      					<enabled>true</enabled>
-      					</objectStoresV2>
-      					</service>>
+      						<service>
+      							<objectStoresV2>
+      								<enabled>true</enabled>
+      							</objectStoresV2>
+      						</service>
       					</integration>
       					<environment>sandbox</environment>
       					<region>US-WEST-2</region>
@@ -60,7 +60,7 @@
 	
 	<distributionManagement>
         <repository>
-            <id>Testca.anypoint.credentials</id>
+            <id>Testca.anypoint.credentials</id> <!-- Should match the server id -->
             <name>My Repository</name>
             <url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${project.groupId}/maven</url>
         </repository>
