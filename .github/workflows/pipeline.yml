@@ -111,10 +111,10 @@ jobs:
         - name: Deploy to SANDBOX
           run: |
             artifactName=$(ls *.jar | head -1)
-             mvn deploy -DmuleDeploy \ 
-             -Dmule.artifact=$artifactName \
-             -B .maven/settings.xml \ 
-             -Danypoint.id="$CA_CLIENT_ID" \
-             -Danypoint.secret="$CA_CLIENT_SECRET" \
-             -DskipTests \
-             -DskipDeploymentVerification="true"
+            mvn deploy -DmuleDeploy \
+            -Dmule.artifact=$artifactName \
+            -s .maven/settings.xml \
+            -Danypoint.id="$CA_CLIENT_ID" \
+            -Danypoint.secret="$CA_CLIENT_SECRET" \
+            -DskipTests \
+            -DskipDeploymentVerification="true"
