@@ -33,6 +33,7 @@ jobs:
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           timestamp=$(date +%s)
           artifactNameWithHash="$artifactName-$commitHash-$timestamp.jar"
+          mkdir -p target  # Create target directory if it doesn't exist
           mv "$artifactName" "target/$artifactNameWithHash"
 
       - name: Upload artifact to Git repository
