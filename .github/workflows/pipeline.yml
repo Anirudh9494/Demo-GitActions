@@ -49,49 +49,49 @@ jobs:
         with: 
           name: artifacts
           path: target/*.jar
-  upload:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with: 
-        path: ~/.m2/repository
-        key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
-        restore-keys: |
-          ${{runner.os}}-maven-
-    - uses: actions/download-artifact@master
-      with:
-        name: artifacts
+  # upload:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - uses: actions/cache@v3
+  #     with: 
+  #       path: ~/.m2/repository
+  #       key: ${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
+  #       restore-keys: |
+  #         ${{runner.os}}-maven-
+  #   - uses: actions/download-artifact@master
+  #     with:
+  #       name: artifacts
 
-    - name: Create Workspace Directory
-      run: mkdir TEST
+  #   - name: Create Workspace Directory
+  #     run: mkdir TEST
 
-    - name: Create Relase Directory
-      run: |
-        cd TEST
-        for file in *; do
-        echo "Uploading $file..."
-        curl -X POST \
-        -H "Authorization: token $GITHUB_TOKEN" \
-        -H "Content-Type: application/octet-stream" \
-        --data-binary "@$file" \
-        "$UPLOAD_URL?name=$file"
-         done
+  #   - name: Create Relase Directory
+  #     run: |
+  #       cd TEST
+  #       for file in *; do
+  #       echo "Uploading $file..."
+  #       curl -X POST \
+  #       -H "Authorization: token $GITHUB_TOKEN" \
+  #       -H "Content-Type: application/octet-stream" \
+  #       --data-binary "@$file" \
+  #       "$UPLOAD_URL?name=$file"
+  #        done
       
-    - name: Upload to GitHub Releases
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: https://github.com/Anirudh9494/GitAction-jarFiles
-        asset_path: ./TEST
-        asset_name: ci-cd-poc
-        asset_content_type: application/java-archive
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+  #   - name: Upload to GitHub Releases
+  #     uses: actions/upload-release-asset@v1
+  #     with:
+  #       upload_url: https://github.com/Anirudh9494/GitAction-jarFiles
+  #       asset_path: ./TEST
+  #       asset_name: ci-cd-poc
+  #       asset_content_type: application/java-archive
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
                     
   deploy:
-        needs: upload
+        needs: build
         runs-on: ubuntu-latest 
         env:
           CA_CLIENT_ID: ${{secrets.CA_CLIENT_ID}}
@@ -114,7 +114,7 @@ jobs:
              mvn deploy -DmuleDeploy \ 
              -Dmule.artifact=$artifactName \
              -B .maven/settings.xml \ 
-             -Danypoint.username="$ID" \
-             -Danypoint.password="$SECRET" \
+             -Danypoint.id="$CA_CLIENT_ID" \
+             -Danypoint.secret="$CA_CLIENT_SECRET" \
              -DskipTests \
              -DskipDeploymentVerification="true"
