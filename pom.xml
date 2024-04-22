@@ -30,12 +30,13 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-   					<cloudHubDeployment>
+   					<cloudHub2Deployment>
       					<uri>https://anypoint.mulesoft.com</uri>
+      					<provider>MC</provider>
      				 	<muleVersion>4.5.3</muleVersion>
      				 	<ConnectedAppClientId>${CA_CLIENT_ID}</ConnectedAppClientId>
      					<ConnectedAppClientSecret>${CA_CLIENT_ID}</ConnectedAppClientSecret>
-      					<server>Demo-GitActions</server>
+      					<server>TESTca.anypoint.credentials</server>
       					<applicationName>ci-cd-poc</applicationName>
       					<replica>1</replica>
       					<vcores>0.1</vcores>
@@ -50,7 +51,7 @@
       					<region>US-WEST-2</region>
      					<workers>1</workers>
       					<workerType>MICRO</workerType>
-    				</cloudHubDeployment>
+    				</cloudHub2Deployment>
   				</configuration>
 			</plugin>
 		</plugins>
