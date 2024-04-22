@@ -31,9 +31,11 @@ jobs:
         run: |
           artifactName=$(ls target/*.jar | head -1)
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
-          artifactNameWithHash=$(echo $artifactName | sed "s/.jar/-$commitHash.jar/g")
-          mv $artifactName $artifactNameWithHash
-          mv $artifactNameWithHash target/
+          timestamp=$(date +%s)
+          artifactNameWithHash="$artifactName-$commitHash-$timestamp.jar"
+          mv "$artifactName" "$artifactNameWithHash"
+          mv "$artifactNameWithHash" target/
+
 
 
       - name: Upload artifact to Git repository
