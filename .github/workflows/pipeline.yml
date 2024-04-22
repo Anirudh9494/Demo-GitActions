@@ -40,7 +40,7 @@ jobs:
           git config --local user.name "Anirudh9494"
           git add .
           git commit -m "Add artifact for deployment"
-          git remote add origin https://github.com/Anirudh9494/GitAction-jarFiles.git
+          git remote add origin git@github.com:Anirudh9494/Uploadjar.git
           git push
 
   deploy:
