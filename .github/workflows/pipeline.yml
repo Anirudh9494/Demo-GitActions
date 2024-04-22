@@ -33,10 +33,7 @@ jobs:
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           timestamp=$(date +%s)
           artifactNameWithHash="$artifactName-$commitHash-$timestamp.jar"
-          mv "$artifactName" "$artifactNameWithHash"
-          mv "$artifactNameWithHash" target/
-
-
+          mv "$artifactName" "target/$artifactNameWithHash"
 
       - name: Upload artifact to Git repository
         run: |
