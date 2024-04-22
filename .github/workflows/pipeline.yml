@@ -29,12 +29,12 @@ jobs:
       
       - name: Stamp artifact with commit hash
         run: |
-          artifactName=$(ls target/*.jar | head -1)
+          artifactName=$(basename $(ls target/*.jar | head -1))
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           timestamp=$(date +%s)
           artifactNameWithHash="$artifactName-$commitHash-$timestamp.jar"
           mkdir -p target  # Create target directory if it doesn't exist
-          mv "$artifactName" "target/$artifactNameWithHash"
+          mv "target/$artifactName" "target/$artifactNameWithHash"
 
       - name: Upload artifact to Git repository
         run: |
@@ -59,14 +59,14 @@ jobs:
       - name: Download artifact from Git repository
         run: |
           git pull
-          artifactName=$(ls target/*.jar | head -1)
-          mv $artifactName target/
+          artifactName=$(basename $(ls target/*.jar | head -1))
+          mv "target/$artifactName" target/
 
       - name: Deploy to SANDBOX
         run: |
-          artifactName=$(ls target/*.jar | head -1)
+          artifactName=$(basename $(ls target/*.jar | head -1))
           mvn deploy -DmuleDeploy \
-          -Dmule.artifact=$artifactName \
+          -Dmule.artifact="target/$artifactName" \
           -s .maven/settings.xml \
           -Danypoint.id="$CA_CLIENT_ID" \
           -Danypoint.secret="$CA_CLIENT_SECRET" \
